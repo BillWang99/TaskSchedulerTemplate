@@ -1,0 +1,43 @@
+﻿
+/*輸入資料的資訊框*/
+.input-area {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    margin: 0 auto;
+    width: 400px;
+    height: auto;
+    background-color: #011F26;
+    border-radius: 5px;
+    box-shadow: 5px 5px;
+}
+
+.loginForm {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    max-width: 80%;
+    color: white;
+}
+
+.loginForm h3 {
+    text-align: center;
+}
+
+.input-row{
+    margin-top:30px;
+    
+}
+
+.submit-btn-area {
+    text-align: center;
+    margin-top: 40px;
+    
+}
+
+.submit-btn {
+    color:white;
+    background-color: gray;
+    width: 100%;
+}

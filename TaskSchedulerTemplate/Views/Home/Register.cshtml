@@ -1,0 +1,55 @@
+﻿@model TaskSchedulerTemplate.ViewModels.Home.RegisterViewModel;
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "註冊";
+}
+<div class="input-area">
+    <form asp-action="Register" method="post" class="loginForm">
+        <h3>註冊</h3>
+        
+        <div class="input-row">
+            <label for="Member_Name_" class="form-label">姓名<i class="bi bi-pen"></i></label>
+            <input type="text" class="form-control" id="Member_Name_" asp-for="Member_Name_">
+            <span asp-validation-for="Member_Name_" class="text-danger fw-bold d-block"></span>
+        </div>
+
+        <div class="input-row">
+            <label for="Member_Account_" class="form-label">帳號<i class="bi bi-person-circle"></i></label>
+            <input type="text" class="form-control" id="Member_Account_" asp-for="Member_Account_">
+            <span asp-validation-for="Member_Account_" class="text-danger fw-bold d-block"></span>
+        </div>
+
+        <div class="input-row">
+            <label for="Member_Email_" class="form-label">電子郵件<i class="bi bi-mailbox"></i></label>
+            <input type="text" class="form-control" id="Member_Email_" asp-for="Member_Email_">
+            <span asp-validation-for="Member_Email_" class="text-danger fw-bold d-block"></span>
+        </div>
+
+        <div class="input-row">
+            <label for="Member_Password_" class="form-label">密碼<i class="bi bi-file-earmark-lock"></i></label>
+            <input type="password" class="form-control" id="Member_Password_" asp-for="Member_Password_">
+            <span asp-validation-for="Member_Password_" class="text-danger fw-bold d-block"></span>
+        </div>
+
+        <div class="input-row">
+            <label for="Member_Phone_" class="form-label">手機<i class="bi bi-phone"></i></label>
+            <input type="text" class="form-control" id="Member_Phone_" asp-for="Member_Phone_">
+            <span asp-validation-for="Member_Phone_" class="text-danger fw-bold d-block"></span>
+        </div>
+
+        <div class="input-row">
+            <label for="Member_Tel_Phone_" class="form-label">電話<i class="bi bi-telephone"></i></label>
+            <input type="text" class="form-control" id="Member_Tel_Phone_" asp-for="Member_Tel_Phone_">
+            <span asp-validation-for="Member_Tel_Phone_" class="text-danger fw-bold d-block"></span>
+        </div>
+
+        <div class="submit-btn-area d-block">
+            <button type="submit" class="btn submit-btn">註冊</button>
+        </div>
+
+    </form>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/LoginLayout/Index.css" />
+}
