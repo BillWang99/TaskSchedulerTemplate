@@ -1,18 +1,19 @@
-﻿@{
+﻿@model TaskSchedulerTemplate.ViewModels.Home.LoginViewModel;
+@{
     Layout = "_LoginLayout";
     ViewData["Title"] = "登入";
 }
 
 <div class="input-area">
-    <form method="post" class="loginForm">
+    <form asp-action="" method="post" class="loginForm">
         <h3>登入</h3>
         <div class="input-row">
             <label for="Member_Account_" class="form-label">帳號</label>
-            <input type="text" class="form-control" id="Member_Account_">
+            <input type="text" class="form-control" id="Member_Account_" asp-for="Member_Account_">
         </div>
         <div class="input-row">
             <label for="Member_Password_" class="form-label">密碼</label>
-            <input type="password" class="form-control" id="Member_Password_">
+            <input type="password" class="form-control" id="Member_Password_" asp-for="Member_Password_">
         </div>
         <div class="submit-btn-area d-block">
             <button type="submit" class="btn submit-btn">登入</button>

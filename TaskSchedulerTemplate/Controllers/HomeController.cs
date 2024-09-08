@@ -3,6 +3,10 @@ using System.Diagnostics;
 using TaskSchedulerTemplate.Interface.Home;
 using TaskSchedulerTemplate.Models;
 using TaskSchedulerTemplate.ViewModels.Home;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace TaskSchedulerTemplate.Controllers
 {
@@ -10,17 +14,64 @@ namespace TaskSchedulerTemplate.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRegisterService _register;
+        private readonly ILoginSerivce _loginSerivce;
 
-        public HomeController(ILogger<HomeController> logger, IRegisterService register)
+        public HomeController(ILogger<HomeController> logger, IRegisterService register, ILoginSerivce loginSerivce)
         {
             _logger = logger;
             _register = register;
+            _loginSerivce = loginSerivce;
         }
 
         //登入畫面
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(LoginViewModel model)
+        {
+            //如果資料不符合規則
+            if (!ModelState.IsValid)
+            {
+                //回到註冊畫面並顯示錯誤訊息
+                return View("Index", model);
+            }
+
+            //檢查帳號是否存在
+            bool AcExist = _loginSerivce.AcExist(model.Member_Account_);
+
+            //帳號不存在
+            if (!AcExist)
+            {
+                //回到註冊畫面並顯示錯誤訊息
+                return View("Index", model);
+            }
+
+            bool UserLogin = _loginSerivce.LoginValidation(model);
+
+            if (!UserLogin)
+            {
+                //回到註冊畫面並顯示錯誤訊息
+                return View("Index", model);
+            }
+
+            //cookie記錄登入資料
+            UserCookie Data = _loginSerivce.UserCookie(model.Member_Account_);
+            var claims = new List<Claim>
+                    {
+                        new Claim("Account", Data.Member_Account_),
+                        new Claim(ClaimTypes.Name, Data.Member_Name_),
+                        new Claim("Staffcode", Data.Member_Staffcode_),
+
+
+                    };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+            return Json("Success");
         }
 
         //註冊畫面

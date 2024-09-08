@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Ganss.Xss;
-using Microsoft.Identity.Client;
 
 namespace TaskSchedulerTemplate.ViewModels.Home
 {

@@ -1,5 +1,5 @@
 ﻿using FluentMigrator;
-using FluentMigrator.SqlServer;
+
 
 namespace TaskSchedulerTemplate.Migrations
 {

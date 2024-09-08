@@ -17,7 +17,7 @@ namespace TaskSchedulerTemplate.Service
                     // Set the connection string
                     .WithGlobalConnectionString("Server = localhost; Database = TaskSchedulerTemplate; User Id = BWD; Password = Bluewhale09@;Trusted_Connection=True;TrustServerCertificate=true")
                     // Define the assembly containing the migrations
-                    .ScanIn(typeof(CreateTable_20240907).Assembly).For.Migrations())
+                    .ScanIn(typeof(UpdateTable_20240908).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 // Build the service provider

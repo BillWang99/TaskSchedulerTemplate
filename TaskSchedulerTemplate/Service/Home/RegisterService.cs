@@ -1,6 +1,4 @@
-﻿using AngleSharp.Css.Values;
-using Dapper;
-using Microsoft.Win32;
+﻿using Dapper;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,7 +26,7 @@ namespace TaskSchedulerTemplate.Service.Home
             string sql = @"SELECT  Member_Account_ FROM Member WHERE Member_Account_ = @Member_Account_";
 
             //取出結果
-            string Ac = _con.QueryFirstOrDefault(sql, new { Member_Account_ });
+            string Ac = _con.QueryFirstOrDefault<string>(sql, new { Member_Account_ });
 
             if (Ac != "" && Ac != null){
                 //帳號已被使用

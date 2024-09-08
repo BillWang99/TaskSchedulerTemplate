@@ -10,6 +10,7 @@ using FluentValidation;
 using TaskSchedulerTemplate.ViewModels.Home;
 using TaskSchedulerTemplate.Interface.Home;
 using TaskSchedulerTemplate.Service.Home;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,37 +27,16 @@ builder.Services.AddScoped<SqlConnection, SqlConnection>(_ =>
 });
 
 
+//Identity
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option => {
+    //未登入的導向
+    option.LoginPath = new PathString("/Home/Index");
 
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
-    options.Password.RequiredUniqueChars = 1;
+    //權限不足導向
+    option.AccessDeniedPath = new PathString("");
 
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
-    options.User.AllowedUserNameCharacters =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-});
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    // Cookie settings
-    options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-
-    options.LoginPath = "/Identity/Account/Login";
-    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-    options.SlidingExpiration = true;
+    //cookie有效期限(20分鐘)
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
 });
 
 
@@ -64,10 +44,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddFluentValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
+//註冊資料驗證
 builder.Services.AddScoped<IValidator<RegisterViewModel>, RegisterValidator>();
+//登入資料驗證
+builder.Services.AddScoped<IValidator<LoginViewModel>, LoginValidator>();
 
 //註冊帳號Service
 builder.Services.AddScoped<IRegisterService, RegisterService>();
+//登入Service
+builder.Services.AddScoped<ILoginSerivce, LoginService>();
 
 var app = builder.Build();
 
