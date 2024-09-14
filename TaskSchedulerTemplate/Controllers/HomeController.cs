@@ -45,8 +45,10 @@ namespace TaskSchedulerTemplate.Controllers
             //帳號不存在
             if (!AcExist)
             {
+                ModelState.AddModelError("Member_Account_", "帳號不存在");
                 //回到註冊畫面並顯示錯誤訊息
                 return View("Index", model);
+                
             }
 
             bool UserLogin = _loginSerivce.LoginValidation(model);
@@ -55,6 +57,7 @@ namespace TaskSchedulerTemplate.Controllers
             {
                 //回到註冊畫面並顯示錯誤訊息
                 return View("Index", model);
+                ModelState.AddModelError("Member_Account_", "帳號或密碼錯誤");
             }
 
             //cookie記錄登入資料
@@ -71,7 +74,9 @@ namespace TaskSchedulerTemplate.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-            return Json("Success");
+            //return Json("Success");
+
+            return RedirectToAction("index", "Main");
         }
 
         //註冊畫面

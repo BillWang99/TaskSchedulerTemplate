@@ -15,6 +15,8 @@
             <label for="Member_Password_" class="form-label">密碼</label>
             <input type="password" class="form-control" id="Member_Password_" asp-for="Member_Password_">
         </div>
+        <span asp-validation-for="Member_Account_" class="text-danger fw-bold d-block"></span>
+        <span asp-validation-for="Member_Password_" class="text-danger fw-bold d-block"></span>
         <div class="submit-btn-area d-block">
             <button type="submit" class="btn submit-btn">登入</button>
         </div>

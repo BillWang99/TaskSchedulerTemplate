@@ -19,10 +19,10 @@ namespace TaskSchedulerTemplate.ViewModels.Home
         public LoginValidator() 
         {
             //帳號不可為空
-            RuleFor(x => x.Member_Account_).NotEmpty().WithName("帳號").WithMessage("{propertyName}不可為空!");
+            RuleFor(x => x.Member_Account_).NotEmpty().NotNull().WithName("帳號").WithMessage("{propertyName}不可為空!");
 
             //密碼不可為空
-            RuleFor(x => x.Member_Password_).NotEmpty().WithName("密碼").WithMessage("{propertyName}不可為空!");
+            RuleFor(x => x.Member_Password_).NotEmpty().NotNull().WithName("密碼").WithMessage("{propertyName}不可為空!");
         }
     } 
 
