@@ -7,16 +7,23 @@
 <div class="input-area">
     <form asp-action="" method="post" class="loginForm">
         <h3>登入</h3>
+
+        <!--帳號-->
         <div class="input-row">
-            <label for="Member_Account_" class="form-label">帳號</label>
+            <label for="Member_Account_" class="form-label">帳號<i class="bi bi-person-circle"></i></label>
             <input type="text" class="form-control" id="Member_Account_" asp-for="Member_Account_">
         </div>
+
+        <!--密碼-->
         <div class="input-row">
-            <label for="Member_Password_" class="form-label">密碼</label>
+            <label for="Member_Password_" class="form-label">密碼<i class="bi bi-mailbox"></i></label>
             <input type="password" class="form-control" id="Member_Password_" asp-for="Member_Password_">
         </div>
+
+        <!--錯誤訊息-->
         <span asp-validation-for="Member_Account_" class="text-danger fw-bold d-block"></span>
         <span asp-validation-for="Member_Password_" class="text-danger fw-bold d-block"></span>
+         
         <div class="submit-btn-area d-block">
             <button type="submit" class="btn submit-btn">登入</button>
         </div>
@@ -24,6 +31,4 @@
     </form>
 </div>
 
-@section Styles{
-    <link rel="stylesheet" href="~/css/LoginLayout/Index.css" />
-}
+
